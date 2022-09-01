@@ -20,12 +20,12 @@ export const ColumnContainer = styled.div`
   flex-glow: 0;
 `
 
-export ColumnTitle = styled.div`
+export const ColumnTitle = styled.div`
   padding: 6px 16px 12px;
   font-weight: bold;
 `
 
-export CardContainer = styled.div`
+export const CardContainer = styled.div`
   background-color: #fff;
   cursor: pointer;
   margin-bottom: 0.5rem;
@@ -33,4 +33,20 @@ export CardContainer = styled.div`
   max-width: 300px;
   border-radius: 3px;
   box-shadow: #091e4240 0px 1px 0px 0ox;
+`
+
+// for add new item button prop
+type AddItemButtonProps = {
+  dark? : boolean
+}
+
+export const AddItemButton = styled.button<AddItemButtonProps>`
+  background-color: #ffffff3d;
+  border-radius: 3px;
+  border: none;
+  color: ${props => (props.dark? '#000' : '#fff')};
+  cursor: pointer;
+  max-width: 300px;
+  padding: 10px 12px;
+  text-align: left;
 `
