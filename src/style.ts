@@ -1,23 +1,23 @@
 import styled from 'styled-components';
 
 export const AppContainer = styled.div`
-  align-item: flex-start;
-  background-color: #3179ba;
+  align-items: flex-start; 
+  background-color: #317080;
   display: flex;
   flex-direction: row;
   height: 100%;
-  pading: 20px;
+  padding: 20px 40px;
   width: 100%;
 `
 
 export const ColumnContainer = styled.div`
-  background-color: #abecf0;
+  background-color: #ebecf0;
   width: 300px;
   min-height: 40px;
   margin-right: 20px;
   border-radius: 3px;
   padding: 8px 8px;
-  flex-glow: 0;
+  flex-grow: 0;
 `
 
 export const ColumnTitle = styled.div`
@@ -35,7 +35,9 @@ export const CardContainer = styled.div`
   box-shadow: #091e4240 0px 1px 0px 0ox;
 `
 
-// for add new item button prop
+/******************************
+ add new list/tast button prop
+*******************************/
 type AddItemButtonProps = {
   dark? : boolean
 }
@@ -49,4 +51,39 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
   max-width: 300px;
   padding: 10px 12px;
   text-align: left;
+  transition: background 85ms ease-in;
+  width: 100%;
+  &:hover {
+    background-color: #ffffff52;
+  }
+`
+
+/******************
+ add new task form
+*******************/
+export const NewItemFormContainer = styled.div`
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-start
+`
+// prop type is input !!!!!!!!!!! otherwise the attribute will give error
+export const NewItemInput = styled.input` 
+  border-radius: 3px;
+  border: none;
+  box-shadow: #091e4240 0px 1px 0px 0px;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+`
+// create button  // prop type is button
+export const NewItemButton = styled.button` 
+  background-color: #5aac44;
+  border-radius: 3px;
+  border: none;
+  box-shadow: none;
+  color: #fff;
+  padding: 6px 12px;
+  text-align: center;
 `
