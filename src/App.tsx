@@ -1,24 +1,19 @@
 import { AppContainer } from './style';
 import { AddNewItem } from './AddNewItem';
 import { Column } from './Column';
-import { Card } from './Card';
+import { useAppState } from './AppStateContext';
 
 
 
 export const App = () => {
+  const { lists } = useAppState();
+
   return (
     // add defalt columns and cards
     <AppContainer >
-      <Column text='To Do'>
-        <Card text='Create react typeScript application'/>
-        <Card text='React hooks practice'/>
-      </Column>
-      <Column text='In Progress'>
-        <Card text='AlgoExpert'/>
-      </Column>
-      <Column text='Done'>
-        <Card text='React practice' />
-      </Column>
+      {lists.map((list) => {
+        return <Column key={list.id} id={list.id} text={list.text} />
+      })}
       <AddNewItem 
         toggleButtonText='+ Add another list'
         onAdd={console.log}

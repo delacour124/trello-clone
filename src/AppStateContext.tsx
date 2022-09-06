@@ -60,6 +60,17 @@ export const AppStateProvider: FC = ({ children }) => {
   const { lists } = appData;
   // define getTasksByListId function
   const getTasksByListId = (id: string) => {
-    return lists.find((list) => list.id === id)
+    return lists.find((list) => list.id === id)?.tasks || []
   }
+
+  return (
+    <AppStateContext.Provider value={{lists, getTasksByListId}}>
+      {children}
+    </AppStateContext.Provider>
+  )
+}
+
+// define hook useContext
+export const useAppState = () => {
+  return useContext(AppStateContext)
 }
