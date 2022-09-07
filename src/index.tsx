@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppStateProvider } from './AppStateContext';
+import { AppStateProvider } from './state/AppStateContext';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import { App } from './App';
+import { App } from './components/App';
 
 // const root = document.getElementById('root');
 // createRoot(root!).render(
