@@ -6,6 +6,8 @@ import { AddNewItem } from './AddNewItem'
 import { useAppState } from '../state/AppStateContext';
 import { Card } from './Card';
 import { addTask } from '../state/actions';
+import { useItemDrag } from '../utils/useItemDrag';
+import { useRef } from 'react';
 
 // define a type for column props
 type ColumnProps = {
@@ -19,12 +21,18 @@ type ColumnProps = {
 
 
 
-export const Column : FC<ColumnProps> = ({ text, id } : ColumnProps) => {
-  const { getTasksByListId, dispatch } = useAppState(); // getTasksByListId is a function from useAppState (global state)
+export const Column = ({ text, id } : ColumnProps) => {
+  const { draggedItem, getTasksByListId, dispatch } = useAppState(); // getTasksByListId is a function from useAppState (global state)
   const tasks = getTasksByListId(id); // tasks is an array of task
+  
+  const ref = useRef<HTMLDivElement>(null);
+  const { drag } = useItemDrag({type: 'COLUMN', id, text});
+  drag(ref);
+
+  
 
   return (
-    <ColumnContainer>
+    <ColumnContainer ref={ref}>
       <ColumnTitle>{text}</ColumnTitle>
       {tasks.map((task) => {
         return <Card key={task.id} id={task.id} text={task.text} />

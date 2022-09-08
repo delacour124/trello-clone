@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppStateProvider } from './state/AppStateContext';
-import { createRoot } from 'react-dom/client';
-import './index.css';
 import { App } from './components/App';
+import { AppStateProvider } from './state/AppStateContext';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend as Backend } from 'react-dnd-html5-backend';
+import './index.css';
+
 
 // const root = document.getElementById('root');
 // createRoot(root!).render(
@@ -16,9 +18,11 @@ import { App } from './components/App';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppStateProvider>
-      <App />
-    </AppStateProvider>
+    <DndProvider backend={Backend}>
+      <AppStateProvider>
+        <App />
+      </AppStateProvider>
+    </DndProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
