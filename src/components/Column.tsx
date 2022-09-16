@@ -5,9 +5,10 @@ import { AddNewItem } from './AddNewItem'
 // import global state
 import { useAppState } from '../state/AppStateContext';
 import { Card } from './Card';
-import { addTask } from '../state/actions';
+import { addTask, moveList } from '../state/actions';
 import { useItemDrag } from '../utils/useItemDrag';
 import { useRef } from 'react';
+import { useDrop } from 'react-dnd'
 
 // define a type for column props
 type ColumnProps = {
@@ -25,11 +26,32 @@ export const Column = ({ text, id } : ColumnProps) => {
   const { draggedItem, getTasksByListId, dispatch } = useAppState(); // getTasksByListId is a function from useAppState (global state)
   const tasks = getTasksByListId(id); // tasks is an array of task
   
+  // define ref to hold the dragged div
   const ref = useRef<HTMLDivElement>(null);
+  
+
+  const [, drop] = useDrop({
+    accept: 'COLUMN',
+    hover() {
+      if (!draggedItem) {
+        return;
+      }
+      if (draggedItem.type === 'COLUMN') {
+        if (draggedItem.id === id) {
+          return;
+        }
+        dispatch(moveList(draggedItem.id, id));
+      }
+    }
+  })
+
+  // get drag method from useItemDrag customize hook, pass an obj of dragged column
   const { drag } = useItemDrag({type: 'COLUMN', id, text});
-  drag(ref);
 
   
+  drag(drop(ref));
+
+
 
   return (
     <ColumnContainer ref={ref}>

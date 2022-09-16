@@ -61,7 +61,7 @@ export const AppStateProvider: FC<any> = ({ children }) => {
   
   // value is passed down to children, passed to all components
   return (
-    <AppStateContext.Provider value={{lists, getTasksByListId, dispatch, draggedItem}}>
+    <AppStateContext.Provider value={{lists, getTasksByListId, dispatch, draggedItem }}>
       {children}
     </AppStateContext.Provider>
   )

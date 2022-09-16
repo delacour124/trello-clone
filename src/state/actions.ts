@@ -30,12 +30,13 @@ export const addTask = (text: string, listId: string): Action => ({
   payLoad: {text, listId},
 })
 
+export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
+  type: 'SET_DRAGGED_ITEM',
+  payLoad: draggedItem
+})
+
 export const moveList = (draggedId: string, hoverId: string): Action => ({
   type: 'MOVE_LIST',
   payLoad: {draggedId, hoverId}
 })
 
-export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
-  type: 'SET_DRAGGED_ITEM',
-  payLoad: draggedItem
-})

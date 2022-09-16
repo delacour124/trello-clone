@@ -1,7 +1,7 @@
 export type ColumnDragItem = {
-  type: 'COLUMN',
   id: string,
   text: string,
+  type: 'COLUMN',
 }
 
 export type DragItem = ColumnDragItem;

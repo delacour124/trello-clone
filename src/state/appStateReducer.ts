@@ -43,14 +43,14 @@ export const appStateReducer = (draft: AppState, action: Action) : AppState | vo
     }
     case 'MOVE_LIST': {
       const { draggedId, hoverId } = action.payLoad;
-      let from = findItemIndexById(draft.lists, draggedId);
-      let to = findItemIndexById(draft.lists, hoverId);
-      moveItem(draft.lists, from, to);
+      const from = findItemIndexById(draft.lists, draggedId);
+      const to = findItemIndexById(draft.lists, hoverId);
+      draft.lists = moveItem(draft.lists, from, to); // debug: don't forget assign moveItem() to draft.lists
       break;
     }
     case 'SET_DRAGGED_ITEM': { 
-      draft.draggedItem = action.payLoad // update draggedItem in state
-      break
+      draft.draggedItem = action.payLoad; // update draggedItem in state
+      break;
     }
     default: {
       break
