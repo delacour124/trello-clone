@@ -10,18 +10,54 @@ export const AppContainer = styled.div`
   width: 100%;
 `
 
+/**************************************
+ * component for dragged item preview *
+**************************************/
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100; 
+`
+// z-index is the stack order of an element
+
 // hide original dragged item (interface is able to extend)
-interface DragPreviewContainerProps {
-  isHidden?: boolean
+type DragPreviewContainerProps = {
+  isHidden?: boolean,
+  isPreview?: boolean,
 }
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${props => (props.isHidden ? 0.3 : 1)};
+  opacity: ${props => (props.isHidden? 0 : 1)};
+  transform: ${props => (props.isPreview? 'rotate(3deg)' : undefined)};
 `
+
+type DragPreviewWrapperProps = {
+  position: {
+    x: number,
+    y: number,
+  }
+}
+
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps> (
+  ({ position: {x, y} }) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`
+    }
+  })
+)<DragPreviewWrapperProps>``
+
+
+/***********************
+ *  Column Component   *
+ **********************/
 
 // extend DragPreviewContainer
 export const ColumnContainer = styled(DragPreviewContainer)` 
-  background-color: #ebecf0;
+  background-color: #e9c46a;
   width: 300px;
   min-height: 40px;
   margin-right: 20px;
@@ -34,6 +70,11 @@ export const ColumnTitle = styled.div`
   padding: 6px 16px 12px;
   font-weight: bold;
 `
+
+
+/***********************
+ *  Card Component   *
+ **********************/
 
 export const CardContainer = styled(DragPreviewContainer)`
   background-color: #fff;
@@ -62,7 +103,7 @@ export const AddItemButton = styled.button<AddItemButtonProps>`
   padding: 10px 12px;
   text-align: left;
   transition: background 85ms ease-in;
-  width: 100%;
+  width: 55%;
   &:hover {
     background-color: #ffffff52;
   }

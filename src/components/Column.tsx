@@ -13,8 +13,9 @@ import { isHidden } from '../utils/isHidden';
 
 // define a type for column props
 type ColumnProps = {
-  text: string
-  id: string
+  text: string,
+  id: string,
+  isPreview?: boolean,
 }
 // alternative way
 // type ColumnProps = React.PropsWithChildren({
@@ -23,7 +24,7 @@ type ColumnProps = {
 
 
 
-export const Column = ({ text, id } : ColumnProps) => {
+export const Column = ({ text, id, isPreview } : ColumnProps) => {
   const { draggedItem, getTasksByListId, dispatch } = useAppState(); // getTasksByListId is a function from useAppState (global state)
   const tasks = getTasksByListId(id); // tasks is an array of task
   
@@ -48,14 +49,16 @@ export const Column = ({ text, id } : ColumnProps) => {
 
   // get drag method from useItemDrag customize hook, pass an obj of dragged column
   const { drag } = useItemDrag({type: 'COLUMN', id, text});
-
-  
   drag(drop(ref));
 
 
 
   return (
-    <ColumnContainer ref={ref} isHidden={isHidden(draggedItem, 'COLUMN', id)}>
+    <ColumnContainer 
+      ref={ref} 
+      isHidden={isHidden(draggedItem, 'COLUMN', id, isPreview)}
+      isPreview={isPreview}
+    >
       <ColumnTitle>{text}</ColumnTitle>
       {tasks.map((task) => {
         return <Card key={task.id} id={task.id} text={task.text} />

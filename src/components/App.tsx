@@ -3,6 +3,7 @@ import { AddNewItem } from './AddNewItem';
 import { Column } from './Column';
 import { useAppState } from '../state/AppStateContext';
 import { addList } from '../state/actions';
+import { CustomDragLayer } from '../CustomDragLayer';
 
 
 
@@ -13,6 +14,7 @@ export const App = () => {
   return (
     // add defalt columns and cards
     <AppContainer >
+      <CustomDragLayer />
       {lists.map((list) => {
         return <Column key={list.id} id={list.id} text={list.text} />
       })}
