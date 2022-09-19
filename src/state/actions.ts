@@ -14,6 +14,10 @@ export type Action =
     payLoad: {draggedId: string, hoverId: string}
   }
 | {
+    type: 'MOVE_TASK',
+    payLoad: {draggedItemId: string, hoverItemId: string | null, sourceColumnId: string, targetColumnId: string}
+  }
+| {
     type: 'SET_DRAGGED_ITEM',
     payLoad: DragItem | null
   }
@@ -38,5 +42,15 @@ export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
 export const moveList = (draggedId: string, hoverId: string): Action => ({
   type: 'MOVE_LIST',
   payLoad: {draggedId, hoverId}
+})
+
+export const moveTask = (
+  draggedItemId: string, 
+  hoverItemId: string | null, 
+  sourceColumnId: string, 
+  targetColumnId: string
+) : Action => ({
+  type: 'MOVE_TASK',
+  payLoad: {draggedItemId, hoverItemId, sourceColumnId, targetColumnId}
 })
 

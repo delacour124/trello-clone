@@ -48,6 +48,20 @@ export const appStateReducer = (draft: AppState, action: Action) : AppState | vo
       draft.lists = moveItem(draft.lists, from, to); // debug: don't forget assign moveItem() to draft.lists
       break;
     }
+    case 'MOVE_TASK': {
+      const { draggedItemId, hoverItemId, sourceColumnId, targetColumnId } = action.payLoad;
+      const sourceListIndex = findItemIndexById(draft.lists, sourceColumnId);
+      const targetListIndex = findItemIndexById(draft.lists, targetColumnId);
+      const dragIndex = findItemIndexById(draft.lists[sourceListIndex].tasks, draggedItemId);
+      const hoverIndex = hoverItemId? findItemIndexById(draft.lists[targetListIndex].tasks, hoverItemId) : 0;
+      
+      const movedItem = draft.lists[sourceListIndex].tasks[dragIndex];
+      // remove task
+      draft.lists[sourceListIndex].tasks.splice(dragIndex, 1);
+      // insert task
+      draft.lists[targetListIndex].tasks.splice(hoverIndex, 0, movedItem);
+      break;
+    }
     case 'SET_DRAGGED_ITEM': { 
       draft.draggedItem = action.payLoad; // update draggedItem in state
       break;

@@ -1,6 +1,5 @@
 import { ColumnContainer, ColumnTitle } from "../style"
 // if the component render children, need type FC to define children prop
-import { Dispatch, FC } from 'react';
 import { AddNewItem } from './AddNewItem'
 // import global state
 import { useAppState } from '../state/AppStateContext';
@@ -10,6 +9,7 @@ import { useItemDrag } from '../utils/useItemDrag';
 import { useRef } from 'react';
 import { useDrop } from 'react-dnd'
 import { isHidden } from '../utils/isHidden';
+import { CustomDragLayer } from '../CustomDragLayer'
 
 // define a type for column props
 type ColumnProps = {
@@ -60,8 +60,9 @@ export const Column = ({ text, id, isPreview } : ColumnProps) => {
       isPreview={isPreview}
     >
       <ColumnTitle>{text}</ColumnTitle>
+      <CustomDragLayer />
       {tasks.map((task) => {
-        return <Card key={task.id} id={task.id} text={task.text} />
+        return <Card key={task.id} id={task.id} columnId={id} text={task.text} />
       })}
       <AddNewItem 
         toggleButtonText='+ Add another task'
