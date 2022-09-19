@@ -4,7 +4,7 @@ import { AddNewItem } from './AddNewItem'
 // import global state
 import { useAppState } from '../state/AppStateContext';
 import { Card } from './Card';
-import { addTask, moveList } from '../state/actions';
+import { addTask, moveList, moveTask, setDraggedItem } from '../state/actions';
 import { useItemDrag } from '../utils/useItemDrag';
 import { useRef } from 'react';
 import { useDrop } from 'react-dnd'
@@ -33,7 +33,7 @@ export const Column = ({ text, id, isPreview } : ColumnProps) => {
   
 
   const [, drop] = useDrop({
-    accept: 'COLUMN',
+    accept: ['COLUMN', 'CARD'], // also accept card, so can move card to an empty column
     hover() {
       if (!draggedItem) {
         return;
@@ -43,6 +43,12 @@ export const Column = ({ text, id, isPreview } : ColumnProps) => {
           return;
         }
         dispatch(moveList(draggedItem.id, id));
+      } else {
+        if (draggedItem.columnId === id && tasks.length) {
+          return;
+        }
+        dispatch(moveTask(draggedItem.id, null, draggedItem.columnId, id));
+        dispatch(setDraggedItem({ ...draggedItem, columnId: id }));
       }
     }
   })
